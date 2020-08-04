@@ -31,11 +31,6 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-//for (Map.Entry<Integer, String> pair : map.entrySet()) {
-//    int key = pair.getKey();
-//    String value = pair.getValue();
-//    System.out.println(key + " " + value);
-//}
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String fileName = reader.readLine();
             String line;
@@ -47,26 +42,26 @@ public class Solution {
                 }
                 for (String x : listStringsFromFile) {
                     String editedString = x;
-                      for (Map.Entry<Integer, String> pair : map.entrySet()) {
-                          String regEx = "(\\D)" + pair.getKey() + "(\\D)";
-                      Pattern pattern = Pattern.compile (regEx);
-                      Matcher matcher = pattern.matcher(editedString);
-                      while(matcher.find()) {
-                          String one, two, toReplace;
-                          one = editedString.substring(0, matcher.start() - 1);
-                          two = editedString.substring(matcher.end() + 1, editedString.length());
-                          toReplace = pair.getValue();
-                          editedString = one + toReplace + two;
-                      }
-                      toWriteList.add(editedString);
-                      }
+                    for (Map.Entry<Integer, String> pair : map.entrySet()) {
+                        String regEx = pair.getKey().toString();
+                        Pattern pattern = Pattern.compile(regEx);
+                        Matcher matcher = pattern.matcher(editedString);
+                        while (matcher.find()) {
+                            String one, two, toReplace;
+                            one = editedString.substring(0, matcher.start() - 1);
+                            two = editedString.substring(matcher.end(), editedString.length());
+                            toReplace = pair.getValue();
+                            editedString = one + " " + toReplace + " " + two + ("\n");
+                        }
+                    }
+                    toWriteList.add(editedString);
+                }
                       FileWriter fileWriter = new FileWriter("C:/testWrite.txt"); // REPLACE ON fileName
                       for(int i = 0; i < toWriteList.size(); i++) {
                           fileWriter.write(toWriteList.get(i));
                       }
                       fileWriter.close();
                       // что-то с циклами перемудрил, пересмотреть логику
-                }
             } catch (FileNotFoundException sad) {
                 System.out.println("FileNotFoundException catched");
             }
