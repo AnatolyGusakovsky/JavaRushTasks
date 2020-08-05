@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 Замена чисел
 */
 
+// works well but fails validation
 public class Solution {
     public static Map<Integer, String> map = new HashMap<Integer, String>();
 
@@ -42,16 +43,18 @@ public class Solution {
                 }
                 for (String x : listStringsFromFile) {
                     String editedString = x;
-                    for (Map.Entry<Integer, String> pair : map.entrySet()) {
-                        String regEx = pair.getKey().toString();
+                    //for (Map.Entry<Integer, String> pair : map.entrySet()) {
+                    for (int i = 12; i > -1; i--) {
+                        String numberString = map.get(i);
+                        String regEx = "\\b" + i + "\\b";
                         Pattern pattern = Pattern.compile(regEx);
                         Matcher matcher = pattern.matcher(editedString);
                         while (matcher.find()) {
                             String one, two, toReplace;
-                            one = editedString.substring(0, matcher.start() - 1);
+                            one = editedString.substring(0, matcher.start());
                             two = editedString.substring(matcher.end(), editedString.length());
-                            toReplace = pair.getValue();
-                            editedString = one + " " + toReplace + " " + two + ("\n");
+                            toReplace = numberString;
+                            editedString = one + " " + toReplace + " " + two + "\n";
                         }
                     }
                     toWriteList.add(editedString);
@@ -61,7 +64,6 @@ public class Solution {
                           fileWriter.write(toWriteList.get(i));
                       }
                       fileWriter.close();
-                      // что-то с циклами перемудрил, пересмотреть логику
             } catch (FileNotFoundException sad) {
                 System.out.println("FileNotFoundException catched");
             }
