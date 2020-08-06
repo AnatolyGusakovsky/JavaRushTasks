@@ -54,16 +54,14 @@ public class Solution {
                             one = editedString.substring(0, matcher.start());
                             two = editedString.substring(matcher.end(), editedString.length());
                             toReplace = numberString;
-                            editedString = one + " " + toReplace + " " + two + "\n";
+                            editedString = one + toReplace + two;
                         }
                     }
                     toWriteList.add(editedString);
                 }
-                      FileWriter fileWriter = new FileWriter("C:/testWrite.txt"); // REPLACE ON fileName
                       for(int i = 0; i < toWriteList.size(); i++) {
-                          fileWriter.write(toWriteList.get(i));
+                          System.out.println(toWriteList.get(i));
                       }
-                      fileWriter.close();
             } catch (FileNotFoundException sad) {
                 System.out.println("FileNotFoundException catched");
             }
