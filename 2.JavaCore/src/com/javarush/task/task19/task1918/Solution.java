@@ -15,7 +15,8 @@ import java.util.regex.Pattern;
 public class Solution {
     public static void main(String[] args) {
        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-           String fileName = reader.readLine();
+//           String fileName = reader.readLine();
+           String fileName = "C:/testRead.txt"; // uncomment line above, delete this line
            String tag = args[0];
            String tagStart = "<" + tag + ">";
            String tagEnd = "</" + tag + ">";
@@ -40,6 +41,7 @@ public class Solution {
                   while(matcher1.find()) {
                       sought = stringsFromFile.get(i).substring(matcher1.start(), matcher1.end());
                       template1AraryStrings.add(sought);
+                      System.out.println(sought);
                   }
 //                  <tag text2>text1</tag>
                   Pattern pattern2 = Pattern.compile("");
@@ -47,6 +49,7 @@ public class Solution {
                   while(matcher2.find()) {
                       sought = stringsFromFile.get(i).substring(matcher2.start(), matcher2.end());
                       template2AraryStrings.add(sought);
+                      System.out.println(sought);
                   }
 //                  <tag
 //                  text2>text1</tag>
@@ -55,6 +58,7 @@ public class Solution {
                   while(matcher3.find()) {
                       sought = stringsFromFile.get(i).substring(matcher3.start(), matcher3.end());
                       template3AraryStrings.add(sought);
+
                   }
               }
            }
