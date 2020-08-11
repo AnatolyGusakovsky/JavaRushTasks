@@ -35,7 +35,7 @@ public class Solution {
                   stringsFromFile.add(line);
               for (int i = 0; i < stringsFromFile.size(); i++) {
 //                  <tag>text1</tag>
-                  Pattern pattern1 = Pattern.compile(".*tagStart.*tagEnd");
+                  Pattern pattern1 = Pattern.compile();
                   Matcher matcher1 = pattern1.matcher(stringsFromFile.get(i));
                   String sought;
                   while(matcher1.find()) {
