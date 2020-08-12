@@ -35,7 +35,7 @@ public class Solution {
                   stringsFromFile.add(line);
               for (int i = 0; i < stringsFromFile.size(); i++) {
 //                  <tag>text1</tag>
-                  Pattern pattern1 = Pattern.compile();
+                  Pattern pattern1 = Pattern.compile("");
                   Matcher matcher1 = pattern1.matcher(stringsFromFile.get(i));
                   String sought;
                   while(matcher1.find()) {
@@ -58,6 +58,7 @@ public class Solution {
                   while(matcher3.find()) {
                       sought = stringsFromFile.get(i).substring(matcher3.start(), matcher3.end());
                       template3AraryStrings.add(sought);
+                      // try to refactor 1923
 
                   }
               }
