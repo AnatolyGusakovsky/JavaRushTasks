@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Solution {
     public static List<String> words = new ArrayList<String>();
-
+// try to except static block
     static {
         words.add("файл");
         words.add("вид");
