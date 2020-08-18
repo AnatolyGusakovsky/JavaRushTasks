@@ -4,6 +4,9 @@ package com.javarush.task.task19.task1918;
 Знакомство с тегами
 */
 
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +19,7 @@ public class Solution {
     public static void main(String[] args) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
 //            String fileName = reader.readLine();
-           String fileName = "C:/testRead.txt"; // uncomment line above, delete this line
+           String fileName = "C:/test.html"; // uncomment line above, delete this line
             String tag = args[0];
             String tagStart = "<" + tag + ">";
             String tagEnd = "</" + tag + ">";
@@ -38,6 +41,12 @@ public class Solution {
                     stringsFromFile.add(line);
                 for (int i = 0; i < stringsFromFile.size(); i++) {
 //                  <tag>text1</tag>
+
+//                    Document doc = Document.
+//                    Elements elements = doc.select("div.page");
+
+
+
                     Pattern pattern1 = Pattern.compile(".?[tagStart][^tagStart][tagEnd]");
                     Matcher matcher1 = pattern1.matcher(stringsFromFile.get(i));
                     String sought;
