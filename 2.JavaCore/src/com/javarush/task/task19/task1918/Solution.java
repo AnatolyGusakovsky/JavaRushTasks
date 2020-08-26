@@ -32,26 +32,37 @@ public class Solution {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String fileName = reader.readLine();
 //            String fileName = "C:/test.html"; // uncomment line above, delete this line
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            ArrayList<String> list = new ArrayList<>();
-            String line, resultLine;
-            resultLine = "";
-            while ((line = bufferedReader.readLine()) != null)
-                resultLine = resultLine + line;
+            FileInputStream fileInputStream = new FileInputStream(fileName);
+            byte[] buffer = new byte[fileInputStream.available()];
+            if (fileInputStream.available() > 0) {
+                int count = fileInputStream.read(buffer);
+            }
+            fileInputStream.close();
 
+            String resultLine = new String(buffer);
             String tag = args[0];
-            Elements inputElements = new Elements();
 
                 Document doc = parse(resultLine);
-                inputElements = doc.getElementsByTag(tag);
+                Elements inputElements = doc.getElementsByTag(tag);
                 for (Element inputElement : inputElements) {
                     String temp = inputElement.outerHtml();
-                    System.out.println(inputElement.outerHtml());
+                    Pattern pattern1 = Pattern.compile("<" + tag + ">\\s+");
+                    Matcher matcher1 = pattern1.matcher(temp);
+                    Pattern pattern2 = Pattern.compile("\\s+</" + tag + ">");
+                    Matcher matcher2 = pattern2.matcher(temp);
+                    while (matcher1.find()){
+                        String open = "<" + tag + ">";
+                        String x = temp.substring(matcher1.start(), matcher1.end());
+                        temp = temp.replace(x, open);
+                    }
+                    while (matcher2.find()){
+                        String close = "</" + tag + ">";
+                        String x = temp.substring(matcher2.start(), matcher2.end());
+                        temp = temp.replace(x, close);
+                    }
+                    System.out.println(temp);
                 }
 
-
-            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
