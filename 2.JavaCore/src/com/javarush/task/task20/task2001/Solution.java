@@ -1,4 +1,4 @@
-package com.javarush.task.task20.task2005;
+package com.javarush.task.task20.task2001;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -6,27 +6,26 @@ import java.util.Arrays;
 import java.util.List;
 
 /* 
-Очень странные дела
+Читаем и пишем в файл: Human
 */
-
 public class Solution {
     public static void main(String[] args) {
-        //исправь outputStream/inputStream в соответствии с путем к твоему реальному файлу
+        //исправьте outputStream/inputStream в соответствии с путем к вашему реальному файлу
         try {
-            File your_file_name = File.createTempFile("C:/testWrite.txt", null);
+            File your_file_name = new File("C:/testWrite.txt");
             OutputStream outputStream = new FileOutputStream(your_file_name);
             InputStream inputStream = new FileInputStream(your_file_name);
 
-            Human ivanov = new Human("Ivanov", new Asset("home"), new Asset("car"));
+            Human ivanov = new Human("Ivanov", new Asset("home", 999_999.99),
+                    new Asset("car", 2999.99));
             ivanov.save(outputStream);
             outputStream.flush();
 
             Human somePerson = new Human();
             somePerson.load(inputStream);
-            //check here that ivanov equals to somePerson - проверьте тут, что ivanov и somePerson равны
-            System.out.println(ivanov.equals(somePerson));
             inputStream.close();
-
+            //check here that ivanov equals to somePerson - проверьте тут, что ivanov и somePerson равны
+//            System.out.println(ivanov.equals(somePerson));
         } catch (IOException e) {
             //e.printStackTrace();
             System.out.println("Oops, something wrong with my file");
@@ -40,25 +39,6 @@ public class Solution {
         public String name;
         public List<Asset> assets = new ArrayList<>();
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Human human = (Human) o;
-
-            if (name != null ? !name.equals(human.name) : human.name == null) return false;
-            return assets != null ? assets.equals(human.assets) : human.assets == null;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = name != null ? name.hashCode() : 0;
-            result = 31 * result + (assets != null ? assets.hashCode() : 0);
-            return result;
-        }
-
         public Human() {
         }
 
@@ -69,25 +49,52 @@ public class Solution {
             }
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Human human = (Human) o;
+
+            if (name != null ? !name.equals(human.name) : human.name != null) return false;
+            return assets != null ? assets.equals(human.assets) : human.assets == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = name != null ? name.hashCode() : 0;
+            result = 31 * result + (assets != null ? assets.hashCode() : 0);
+            return result;
+        }
+
         public void save(OutputStream outputStream) throws Exception {
             //implement this method - реализуйте этот метод
             PrintWriter printWriter = new PrintWriter(outputStream);
-            printWriter.println(this.name);
-            if (this.assets.size() > 0) {
-                for (Asset current : this.assets)
-                    printWriter.println(current.getName());
+            if (this.name != null) {
+                printWriter.write(this.name);
+                printWriter.println();
+                if (this.assets != null ) {
+                    for (Asset current : this.assets) {
+                        printWriter.write(current.getName());
+                        printWriter.println();
+                        printWriter.print(current.getPrice());
+                        printWriter.println();
+                    }
+                }
             }
-            printWriter.close();
+            printWriter.flush();
         }
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-            this.name = reader.readLine();
-            String assetName;
-            while ((assetName = reader.readLine()) != null)
-                this.assets.add(new Asset(assetName));
+            String humanName = reader.readLine();
+            if (humanName != null)
+            this.name = humanName;
+            String assetName, assetPrice;
+            while ((assetName = reader.readLine()) != null && (assetPrice = reader.readLine()) != null) {
+                this.assets.add(new Asset(assetName, Double.parseDouble(assetPrice)));
+            }
             reader.close();
         }
     }
