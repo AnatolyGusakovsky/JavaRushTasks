@@ -16,11 +16,6 @@ public class Solution {
         this.last = last;
     }
 
-//    public boolean equals(Solution n) {
-//        return n.first.equals(first) && n.last.equals(last);
-//    }
-//
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
