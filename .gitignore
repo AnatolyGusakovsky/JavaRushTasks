@@ -1,9 +1,9 @@
-﻿#############
-## Idea
+﻿## Idea
 #############
+target/
+.idea/
+.idea
 
-/Instruction.png
+/out/
 /out.log
-/.idea/
-/JavaRushPlugin.properties
-/JavaRushTasks.iml
+/out.log.*
