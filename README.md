@@ -1,2 +1,2 @@
 # JavaRushTasks
-It is an education project that provide Java Syntax/Core/Multithreading/Collections tasks.
+It is an educational project that provides Java Syntax/Core/Multithreading/Collections tasks.
