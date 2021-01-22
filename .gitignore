@@ -5,5 +5,6 @@ target/
 .idea
 
 /out/
+/JavaRushPlugin.properties
 /out.log
 /out.log.*
