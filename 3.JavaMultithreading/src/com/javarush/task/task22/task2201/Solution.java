@@ -33,28 +33,19 @@ public class Solution {
     }
 
     public synchronized String getPartOfString(String string, String threadName) {
-//        if (string == null) throw new com.javarush.task.task22.task2203.Solution.TooShortStringException();
-        boolean flag = true;
-        int count = 0;
-        String temp = string;
-        while (flag) {
-            if (temp.contains("\t")) {
-                temp = temp.replaceFirst("\t", "");
-                count++;
-            } else flag = false;
-        }
-        if (count >= 2) {
-            String[] arr = string.split("\t");
-            return arr[1];
-        }
-//        else
-//            throw new com.javarush.task.task22.task2203.Solution.TooShortStringException();
-
-        if(threadName.equals("FIRST_THREAD_NAME"))
+        if (threadName.equals("FIRST_THREAD_NAME"))
             throw new StringForFirstThreadTooShortException();
-        if(threadName.equals("SECOND_THREAD_NAME"))
+        if (threadName.equals("SECOND_THREAD_NAME"))
             throw new StringForSecondThreadTooShortException();
-        else
+        else if (threadName != null)
             throw new RuntimeException();
+
+        String[] splitedArray = string.split("\t");
+        String result = "";
+        for (int i = 1; i < splitedArray.length - 1; i++) {
+            result = result + splitedArray[i];
+        }
+
+        return null;
     }
 }
