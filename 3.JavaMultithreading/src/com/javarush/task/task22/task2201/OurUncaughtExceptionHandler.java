@@ -13,17 +13,19 @@ public class OurUncaughtExceptionHandler implements Thread.UncaughtExceptionHand
         }
     }
 
-    protected String getFormattedStringForOtherThread(Thread t, Throwable e, String string) {
-// remove return null
-       return null;
+    protected String getFormattedStringForFirstThread(Thread t, Throwable e, String string) {
+//        Метод getFormattedStringForFirstThread() должен возвращать строку сформированную
+//        из переданных параметров по шаблону указанному в задании.
+        return t.getName() + " : " + e.getClass().getSimpleName() + " : " + e.getCause();
+
     }
 
     protected String getFormattedStringForSecondThread(Thread t, Throwable e, String string) {
-        return null;
+        return e.getCause() + " : " + e.getClass().getSimpleName() + " : " + t.getName();
     }
 
-    protected String getFormattedStringForFirstThread(Thread t, Throwable e, String string) {
-        return null;
+    protected String getFormattedStringForOtherThread(Thread t, Throwable e, String string) {
+        return e.getClass().getSimpleName() + " : " + e.getCause() + " : " + t.getName();
     }
 }
 
