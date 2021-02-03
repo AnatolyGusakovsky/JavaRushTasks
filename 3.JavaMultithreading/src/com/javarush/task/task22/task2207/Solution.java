@@ -14,8 +14,6 @@ public class Solution {
     public static List<Pair> result = new LinkedList<>();
 
     public static void main(String[] args) throws IOException {
-//        String test = "Test string just for me";
-//        String [] wordsArray = test.split(" ");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String fileName = reader.readLine();
@@ -29,16 +27,18 @@ public class Solution {
             words.addAll(Arrays.asList(wordsArray));
         }
 
-        for(String word : words){
-            StringBuilder revertedWord = new StringBuilder(word);
+        for (int i = 0; i < words.size(); i++) {
+            StringBuilder revertedWord = new StringBuilder(words.get(i));
             revertedWord.reverse();
             String revWord = String.valueOf(revertedWord);
-            for (String newWord: words){
-
-                Pair pair = new Pair(revWord, newWord);
-
-
-
+            for (int k = i + 1; k < words.size() - 1; k++) {
+                if (revWord.equals(words.get(k))) {
+                    Pair pair = new Pair();
+                    pair.first = words.get(i);
+                    pair.second = words.get(k);
+                    if (!(Pair.pairExistInlist(pair, result)))
+                        result.add(pair);
+                }
             }
         }
     }
@@ -46,11 +46,6 @@ public class Solution {
     public static class Pair {
         String first;
         String second;
-// this is my constructor
-        public Pair (String first, String second) {
-            this.first = first;
-            this.second = second;
-        }
 
         @Override
         public boolean equals(Object o) {
@@ -61,7 +56,6 @@ public class Solution {
 
             if (first != null ? !first.equals(pair.first) : pair.first != null) return false;
             return second != null ? second.equals(pair.second) : pair.second == null;
-
         }
 
         @Override
@@ -77,8 +71,17 @@ public class Solution {
                     first == null ? second :
                             second == null ? first :
                                     first.compareTo(second) < 0 ? first + " " + second : second + " " + first;
+        }
 
+        public static boolean pairExistInlist(Pair pair, List<Pair> pairList) {
+            Boolean result = false;
+            for (Pair i : pairList) {
+                if (i.equals(pair))
+                    result = true;
+                else
+                    result = false;
+            }
+            return result;
         }
     }
-
 }
