@@ -24,7 +24,7 @@ import java.util.Comparator;
 //    }
 //}
 
-// learn how to use comparable
+// Implementation of usage Comparable interface
 class Dog implements Comparable<Dog> {
   private String name;
   private int height;
@@ -51,5 +51,7 @@ class Dog implements Comparable<Dog> {
       System.out.println(dog.name + ", my height is: " + dog.height);
     });
   }
-
 }
+
+// Implementation of usage Java Comparator Interface
+// todo: finish with theory and implement below
