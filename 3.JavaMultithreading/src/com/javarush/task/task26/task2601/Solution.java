@@ -24,7 +24,7 @@ import java.util.Comparator;
 //    }
 //}
 
-// learn how to use comparable
+// Implementation of usage Comparable interface
 class Dog implements Comparable<Dog> {
   private String name;
   private int height;
@@ -51,5 +51,41 @@ class Dog implements Comparable<Dog> {
       System.out.println(dog.name + ", my height is: " + dog.height);
     });
   }
-
 }
+
+
+// Implementation of usage Java Comparator Interface
+// todo: finish with theory and implement below
+class Cat {
+  private String name;
+  private int height;
+
+  public Cat(String name, int height) {
+    this.name = name;
+    this.height = height;
+  }
+
+  public static void main(String[] args) {
+    ArrayList<Cat> catList = new ArrayList<>();
+    for (int i = 10; i > 0; i--) {
+      catList.add(new Cat("Cat" + i, i * 2));
+    }
+
+//    System.out.println(catList.get(0).compareTo(catList.get(1)));
+    Collections.sort(catList);
+
+    catList.forEach((cat) -> {
+      System.out.println(cat.name + ", my height is: " + cat.height);
+    });
+  }
+
+  class CatComparator implements Comparator<Cat>{
+    @Override
+    public int compare(Cat o1, Cat o2) {
+      return o1.height - o2.height;
+    }
+  }
+}
+
+// todo: check that catsort works properly
+// todo: add both of above examples to my new project-library and knowledgebase doc
